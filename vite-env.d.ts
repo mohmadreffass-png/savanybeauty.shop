@@ -1,10 +1,10 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App";
+/// <reference types="vite/client" />
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+interface ImportMetaEnv {
+  readonly VITE_GOOGLE_SHEETS_WEBHOOK: string;
+  readonly VITE_SNAPCHAT_PIXEL_ID: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
