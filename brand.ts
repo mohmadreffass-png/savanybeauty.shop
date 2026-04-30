@@ -1,156 +1,379 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Logo from './Logo';
-import { BRAND } from '../config/brand';
+// ============================================================
+// SAVANY BEAUTY - Brand Config
+// A/B testing friendly: change copy here without touching components
+// ============================================================
 
-interface NavbarProps {
-  transparent?: boolean;
-}
+export const BRAND = {
+  name: 'Savany Beauty',
+  nameAr: 'سافاني بيوتي',
+  tagline: 'الجمال من الداخل',
+  taglineEn: 'Beauty from Within',
+  phone: '+966500000000', // Replace with real
+  whatsapp: '966500000000', // Replace with real
+  email: 'support@savanybeauty.com',
+  instagram: '@savanybeauty',
+  snapchat: '@savanybeauty',
+  address: 'المملكة العربية السعودية',
+  workingHours: '١٠ص – ١٠م (أيام الأسبوع)',
+  workingHoursEn: '10AM – 10PM (Weekdays)',
+  deliveryEta: {
+    major: '٢-٣ أيام عمل', // Riyadh, Jeddah, Dammam
+    other: '٣-٥ أيام عمل',
+  },
+  googleSheetsWebhook: import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK || '',
+  snapchatPixelId: import.meta.env.VITE_SNAPCHAT_PIXEL_ID || '',
+};
 
-export default function Navbar({ transparent = false }: NavbarProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
+export const PRODUCT = {
+  name: 'Savany Beauty Hair, Skin & Nails Gummies',
+  nameAr: 'جاميز سافاني للشعر والبشرة والأظافر',
+  subtitle: '٦٠ قطعة – شهر كامل من العناية',
+  subtitleEn: '60 Gummies – 30 Day Supply',
+  category: 'مكمل غذائي',
+  disclaimer:
+    'هذا المنتج مكمل غذائي وليس دواءً. النتائج تختلف من شخص لآخر. استشيري طبيبك قبل الاستخدام إذا كنتِ حاملاً أو مرضعاً.',
+  halalNote: 'مصدر الجيلاتين: يُرجى مراجعة بطاقة المنتج للتفاصيل.',
+};
 
-  return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          transparent
-            ? 'bg-transparent'
-            : 'bg-white/95 backdrop-blur-md border-b border-amber-100 shadow-sm'
-        }`}
-      >
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          {/* Hamburger (mobile) */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 rounded-lg text-emerald-900 hover:bg-amber-50 transition"
-            aria-label="القائمة"
-          >
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-              {menuOpen ? (
-                <>
-                  <line x1="4" y1="4" x2="20" y2="20" />
-                  <line x1="20" y1="4" x2="4" y2="20" />
-                </>
-              ) : (
-                <>
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </>
-              )}
-            </svg>
-          </button>
+export const BUNDLES = [
+  {
+    id: 1,
+    qty: 1,
+    label: 'زجاجة واحدة',
+    labelEn: '1 Bottle',
+    price: 199,
+    originalPrice: 250,
+    saving: 51,
+    savingPct: 20,
+    badge: null,
+    deliveryNote: 'توصيل سريع',
+    perBottle: 199,
+    tag: null,
+  },
+  {
+    id: 2,
+    qty: 2,
+    label: 'زجاجتان',
+    labelEn: '2 Bottles',
+    price: 279,
+    originalPrice: 400,
+    saving: 121,
+    savingPct: 30,
+    badge: 'الأكثر مبيعاً',
+    deliveryNote: 'توصيل مجاني',
+    perBottle: 139,
+    tag: 'popular',
+  },
+  {
+    id: 3,
+    qty: 3,
+    label: 'ثلاث زجاجات',
+    labelEn: '3 Bottles',
+    price: 349,
+    originalPrice: 600,
+    saving: 251,
+    savingPct: 42,
+    badge: 'الأفضل قيمة',
+    deliveryNote: 'توصيل مجاني + هدية',
+    perBottle: 116,
+    tag: 'best',
+  },
+];
 
-          {/* Logo (center on mobile, right on desktop) */}
-          <Link to="/" className="flex items-center">
-            <Logo variant="full" className="h-10 w-auto" />
-          </Link>
+export const UPSELLS = [
+  {
+    id: 'collagen-glow',
+    nameAr: 'كولاجين جلو ساشيه (٧ أيام)',
+    nameEn: 'Collagen Glow Sachets (7 days)',
+    descAr:
+      'جرعة تركيز من الكولاجين البحري لنضارة فورية. خاص لعملائنا اليوم فقط.',
+    price: 99,
+    originalPrice: 180,
+    emoji: '✨',
+  },
+  {
+    id: 'scalp-serum',
+    nameAr: 'سيروم الفروة – هير ريفايف',
+    nameEn: 'Scalp Revive Serum',
+    descAr:
+      'سيروم متخصص لتغذية فروة الرأس وتحفيز نمو الشعر. عرض حصري مع طلبك.',
+    price: 99,
+    originalPrice: 160,
+    emoji: '💆‍♀️',
+  },
+];
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link
-              to="/"
-              className="text-emerald-900 hover:text-amber-600 transition font-medium text-sm"
-              style={{ fontFamily: 'Cairo, sans-serif' }}
-            >
-              الرئيسية
-            </Link>
-            <Link
-              to="/product/hair-skin-nails-gummies"
-              className="text-emerald-900 hover:text-amber-600 transition font-medium text-sm"
-              style={{ fontFamily: 'Cairo, sans-serif' }}
-            >
-              المنتج
-            </Link>
-            <Link
-              to="/reviews"
-              className="text-emerald-900 hover:text-amber-600 transition font-medium text-sm"
-              style={{ fontFamily: 'Cairo, sans-serif' }}
-            >
-              آراء العملاء
-            </Link>
-            <Link
-              to="/tracking"
-              className="text-emerald-900 hover:text-amber-600 transition font-medium text-sm"
-              style={{ fontFamily: 'Cairo, sans-serif' }}
-            >
-              تتبع الطلب
-            </Link>
-          </div>
+export const SAUDI_CITIES = [
+  { value: 'riyadh', label: 'الرياض', group: 'major' },
+  { value: 'jeddah', label: 'جدة', group: 'major' },
+  { value: 'dammam', label: 'الدمام', group: 'major' },
+  { value: 'mecca', label: 'مكة المكرمة', group: 'major' },
+  { value: 'medina', label: 'المدينة المنورة', group: 'major' },
+  { value: 'khobar', label: 'الخبر', group: 'major' },
+  { value: 'taif', label: 'الطائف', group: 'other' },
+  { value: 'tabuk', label: 'تبوك', group: 'other' },
+  { value: 'abha', label: 'أبها', group: 'other' },
+  { value: 'khamismushait', label: 'خميس مشيط', group: 'other' },
+  { value: 'hofuf', label: 'الهفوف', group: 'other' },
+  { value: 'buraydah', label: 'بريدة', group: 'other' },
+  { value: 'jubail', label: 'الجبيل', group: 'other' },
+  { value: 'yanbu', label: 'ينبع', group: 'other' },
+  { value: 'najran', label: 'نجران', group: 'other' },
+  { value: 'jizan', label: 'جازان', group: 'other' },
+  { value: 'hail', label: 'حائل', group: 'other' },
+  { value: 'arar', label: 'عرعر', group: 'other' },
+  { value: 'qassim', label: 'القصيم', group: 'other' },
+  { value: 'other', label: 'مدينة أخرى', group: 'other' },
+];
 
-          {/* CTA */}
-          <button
-            onClick={() => navigate('/product/hair-skin-nails-gummies')}
-            className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition"
-            style={{
-              background: 'linear-gradient(135deg, #0d3d2e, #1a5c44)',
-              color: 'white',
-              fontFamily: 'Cairo, sans-serif',
-            }}
-          >
-            اطلبي الآن
-          </button>
+export const MAJOR_CITIES = ['riyadh', 'jeddah', 'dammam', 'mecca', 'medina', 'khobar'];
 
-          {/* WhatsApp icon */}
-          <a
-            href={`https://wa.me/${BRAND.whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full"
-            style={{ background: '#25D366' }}
-            aria-label="واتساب"
-          >
-            <WhatsAppIcon />
-          </a>
-        </div>
-      </nav>
+export const REVIEWS = [
+  {
+    id: 1,
+    name: 'سارة المطيري',
+    city: 'الرياض',
+    stars: 5,
+    date: 'منذ أسبوعين',
+    text: 'والله ما توقعت الفرق يكون بهالسرعة! بعد شهر ونص شعري صار أكثف وما بقى يتكسر. بشرتي كمان صارت أنعم. المنتج رائع وجاني بسرعة.',
+    verified: true,
+    tag: 'شعر + بشرة',
+  },
+  {
+    id: 2,
+    name: 'نورة العتيبي',
+    city: 'جدة',
+    stars: 5,
+    date: 'منذ ٣ أسابيع',
+    text: 'جربت كثير منتجات من قبل بس هذا الأفضل. ظافري وقف يتكسر بعد أسبوعين! وشعري بدأ يطول أسرع. أنصح فيه بشدة.',
+    verified: true,
+    tag: 'أظافر',
+  },
+  {
+    id: 3,
+    name: 'ريم الشمري',
+    city: 'الدمام',
+    stars: 5,
+    date: 'منذ شهر',
+    text: 'المنتج ممتاز والتوصيل كان سريع. بشرتي بدأت تتحسن ملحوظ. الجاميز طعمها حلو كمان مو كأنك تاخذين دواء.',
+    verified: true,
+    tag: 'بشرة',
+  },
+  {
+    id: 4,
+    name: 'لمى القحطاني',
+    city: 'الرياض',
+    stars: 5,
+    date: 'منذ أسبوع',
+    text: 'طلبي وصل بسرعة والتغليف فاخر. بدأت شهر واحد وحاسة فرق بشعري. ما شاء الله على المنتج.',
+    verified: true,
+    tag: 'شعر',
+  },
+  {
+    id: 5,
+    name: 'هيا السبيعي',
+    city: 'مكة المكرمة',
+    stars: 5,
+    date: 'منذ شهرين',
+    text: 'اشتريت ٣ زجاجات ووفرت مبلغ كبير. النتيجة ممتازة، شعري كثف وبشرتي نضرت. أوصي كل بنت تجربه.',
+    verified: true,
+    tag: 'شعر + بشرة',
+  },
+  {
+    id: 6,
+    name: 'عهود المالكي',
+    city: 'المدينة المنورة',
+    stars: 4,
+    date: 'منذ ٣ أسابيع',
+    text: 'منتج ممتاز. ملاحظ فرق في الأظافر والشعر. التوصيل كان في الموعد. سأشتري مرة ثانية بالتأكيد.',
+    verified: true,
+    tag: 'أظافر + شعر',
+  },
+  {
+    id: 7,
+    name: 'بسمة الزهراني',
+    city: 'الطائف',
+    stars: 5,
+    date: 'منذ ٤ أسابيع',
+    text: 'ما توقعت يكون فاخر لهالدرجة! التغليف رائع والمنتج أفضل من توقعاتي. شعري بدأ يقل تساقطه.',
+    verified: true,
+    tag: 'شعر',
+  },
+  {
+    id: 8,
+    name: 'دلال العنزي',
+    city: 'الخبر',
+    stars: 5,
+    date: 'منذ شهر ونص',
+    text: 'من أفضل منتجات الجاميز اللي جربتها. الفرق واضح في البشرة والأظافر. سعرها معقول مقارنة بالنتيجة.',
+    verified: true,
+    tag: 'بشرة + أظافر',
+  },
+  {
+    id: 9,
+    name: 'منال الدوسري',
+    city: 'الدمام',
+    stars: 5,
+    date: 'منذ أسبوعين',
+    text: 'كانت توصيتي من صاحبتي وفعلاً النتيجة حلوة. بشرتي أنعم وشعري أقل تكسر. خدمة العملاء ممتازة كمان.',
+    verified: true,
+    tag: 'شعر + بشرة',
+  },
+  {
+    id: 10,
+    name: 'غادة الحربي',
+    city: 'جدة',
+    stars: 5,
+    date: 'منذ شهر',
+    text: 'طلبتها وجاتني خلال يومين. ممتازة والدفع عند الاستلام كان راحة. النتيجة حلوة في الأظافر خصوصاً.',
+    verified: true,
+    tag: 'أظافر',
+  },
+  {
+    id: 11,
+    name: 'أميرة الرشيد',
+    city: 'الرياض',
+    stars: 5,
+    date: 'منذ ٣ أشهر',
+    text: 'على طول أجدد طلبيتي. النتيجة واضحة ومستمرة. شعري أكثف وبشرتي أنضر. منتج ثابت عندي.',
+    verified: true,
+    tag: 'شعر + بشرة',
+  },
+  {
+    id: 12,
+    name: 'وفاء البقمي',
+    city: 'أبها',
+    stars: 5,
+    date: 'منذ أسبوعين',
+    text: 'وصلني المنتج بحالة ممتازة. بدأت آخذه ومبسوطة جداً. التعبئة فاخرة ومحترمة. ننتظر النتيجة الكاملة.',
+    verified: true,
+    tag: 'جديدة',
+  },
+];
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-white pt-20"
-          style={{ fontFamily: 'Cairo, sans-serif' }}
-        >
-          <div className="px-6 py-4 flex flex-col gap-1">
-            {[
-              { to: '/', label: 'الرئيسية' },
-              { to: '/product/hair-skin-nails-gummies', label: 'المنتج' },
-              { to: '/reviews', label: 'آراء العملاء' },
-              { to: '/tracking', label: 'تتبع طلبي' },
-              { to: '/terms', label: 'الشروط والأحكام' },
-              { to: '/privacy', label: 'سياسة الخصوصية' },
-            ].map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setMenuOpen(false)}
-                className="block py-3 px-4 rounded-xl text-emerald-900 hover:bg-amber-50 font-medium text-lg border-b border-gray-100"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <button
-              onClick={() => {
-                setMenuOpen(false);
-                navigate('/product/hair-skin-nails-gummies');
-              }}
-              className="mt-4 btn-primary"
-            >
-              اطلبي الآن – الدفع عند الاستلام
-            </button>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
+export const FAQS = [
+  {
+    q: 'متى تظهر النتائج؟',
+    a: 'معظم العملاء يلاحظون فرقاً ملموساً خلال ٢-٨ أسابيع من الاستخدام المنتظم. الأظافر عادةً الأسرع تحسناً، يليها الشعر والبشرة. النتائج تختلف من شخص لآخر.',
+  },
+  {
+    q: 'هل المنتج مناسب للحامل أو المرضع؟',
+    a: 'يُنصح باستشارة الطبيب قبل استخدام أي مكمل غذائي أثناء الحمل أو الرضاعة الطبيعية. سلامة طفلك أهم شيء.',
+  },
+  {
+    q: 'هل المنتج حلال؟',
+    a: 'يُرجى مراجعة بطاقة المنتج الموجودة في العبوة للاطلاع على تفاصيل مصدر المكونات. نحرص على توفير منتجات تلبي متطلبات عملائنا.',
+  },
+  {
+    q: 'كيفية الاستخدام؟',
+    a: 'تناولي ٢ قطعة يومياً مع الأكل. يُفضل في الصباح. للحصول على أفضل نتائج، استمري في الاستخدام لمدة ٣ أشهر على الأقل.',
+  },
+  {
+    q: 'ما مدة التوصيل؟',
+    a: 'الرياض، جدة، الدمام، مكة، المدينة، الخبر: ٢-٣ أيام عمل. بقية المناطق: ٣-٥ أيام عمل.',
+  },
+  {
+    q: 'هل يمكن الإرجاع أو الاستبدال؟',
+    a: 'نعم، الاستبدال والإرجاع متاح وفق الشروط والأحكام المعتمدة. للاستفسار تواصلي معنا عبر واتساب أو الهاتف.',
+  },
+  {
+    q: 'هل هو دواء؟',
+    a: 'لا، Savany Beauty جاميز هو مكمل غذائي وليس دواءً. لا يهدف لتشخيص أو علاج أي مرض. للحالات الصحية الخاصة يُرجى مراجعة الطبيب.',
+  },
+  {
+    q: 'هل يتعارض مع أدوية أخرى؟',
+    a: 'إذا كنتِ تتناولين أي أدوية، يُرجى استشارة الطبيب أو الصيدلاني قبل استخدام المكمل الغذائي.',
+  },
+];
 
-function WhatsAppIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-    </svg>
-  );
-}
+export const INGREDIENTS = [
+  {
+    name: 'البيوتين',
+    nameEn: 'Biotin',
+    icon: '💎',
+    desc: 'يُساهم في المحافظة على صحة الشعر والأظافر وبشرة نضرة طبيعية.',
+  },
+  {
+    name: 'الكولاجين',
+    nameEn: 'Collagen',
+    icon: '✨',
+    desc: 'يدعم مرونة البشرة وكثافة الشعر.',
+  },
+  {
+    name: 'فيتامين C',
+    nameEn: 'Vitamin C',
+    icon: '🍋',
+    desc: 'مضاد للأكسدة يُعزز إنتاج الكولاجين ويحمي البشرة.',
+  },
+  {
+    name: 'فيتامين E',
+    nameEn: 'Vitamin E',
+    icon: '🌿',
+    desc: 'يُغذي الشعر ويحمي الخلايا من الأكسدة.',
+  },
+  {
+    name: 'الزنك',
+    nameEn: 'Zinc',
+    icon: '⚡',
+    desc: 'عنصر أساسي لنمو الشعر والأظافر وصحة البشرة.',
+  },
+  {
+    name: 'أوميغا',
+    nameEn: 'Omega Blend',
+    icon: '🐟',
+    desc: 'أحماض دهنية أساسية تُعزز لمعة الشعر وترطيب البشرة.',
+  },
+];
+
+export const HOW_IT_WORKS = [
+  {
+    step: '١',
+    title: 'اختاري باقتك',
+    desc: 'اختاري العدد المناسب لك وأتممي الطلب في أقل من دقيقة.',
+  },
+  {
+    step: '٢',
+    title: 'تأكيد الطلب',
+    desc: 'سيتصل بك فريقنا لتأكيد العنوان وتفاصيل التوصيل.',
+  },
+  {
+    step: '٣',
+    title: 'الاستلام والدفع',
+    desc: 'يصلك المنتج في ٢-٥ أيام. ادفعي عند الاستلام بكل راحة.',
+  },
+  {
+    step: '٤',
+    title: 'النتائج',
+    desc: 'ابدئي رحلتك وتمتعي بشعر أكثف وبشرة أنعم وأظافر أقوى.',
+  },
+];
+
+export const TRUST_BADGES = [
+  { icon: '🚚', title: 'توصيل لجميع مناطق المملكة', desc: '٢-٥ أيام عمل' },
+  { icon: '💳', title: 'الدفع عند الاستلام', desc: 'COD آمن ومريح' },
+  { icon: '📞', title: 'دعم عملاء سعودي', desc: '١٠ص – ١٠م' },
+  { icon: '🔒', title: 'طلب آمن ومحمي', desc: 'بياناتك بأمان تام' },
+  { icon: '✅', title: 'منتج موثوق', desc: 'جودة معتمدة' },
+  { icon: '↩️', title: 'سياسة استرجاع', desc: 'حسب الشروط' },
+];
+
+export const COPY = {
+  hero: {
+    headline: 'شعر أكثف. بشرة أنعم. أظافر أقوى.',
+    headlineEn: 'Thicker Hair. Glowing Skin. Stronger Nails.',
+    subheadline: 'المكمل الغذائي الفاخر الذي تحبه النساء في المملكة. نتائج حقيقية تبدأ من الداخل.',
+    cta: 'اطلبي الآن – الدفع عند الاستلام',
+    urgency: 'الشحن اليوم للطلبات المؤكدة قبل الساعة ٥ عصراً',
+    badge: 'دفعة محدودة',
+  },
+  promise: {
+    title: 'وعدنا لك',
+    items: [
+      'مكونات مختارة بعناية لأفضل النتائج',
+      'تركيبة علمية للجمال من الداخل',
+      'مكمل غذائي وليس دواء — آمن وموثوق',
+      'نتائج مرئية خلال ٢-٨ أسابيع',
+      'عملاء راضون في جميع مناطق المملكة',
+    ],
+  },
+};
